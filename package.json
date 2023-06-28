@@ -75,5 +75,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "surrealdb.wasm": "^0.6.0"
   }
 }
