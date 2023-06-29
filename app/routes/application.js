@@ -1,25 +1,22 @@
 import Route from '@ember/routing/route';
 
-import { Surreal } from 'surrealdb.wasm';
+// import { Surreal } from 'surrealdb.wasm';
 
 export default class ApplicationRoute extends Route {
   async beforeModel() {
+    let { Surreal } = await import('surrealdb.wasm');
+
     const db = new Surreal();
     try {
       // Connect to the database
       // prettier-ignore
-      await db.connect('ws://127.0.0.1:8000');
-
-      // Signin as a namespace, database, or root user
-      await db.signin({
-        username: 'root',
-        password: 'root',
-      });
+      await db.connect('memory');
 
       // Select a specific namespace / database
       await db.use({ ns: 'test', db: 'test' });
 
       // Create a new person with a random id
+      // eslint-disable-next-line no-unused-vars
       let created = await db.create('person', {
         title: 'Founder & CEO',
         name: {
